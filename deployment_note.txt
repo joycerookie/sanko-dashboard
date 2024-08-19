@@ -1,0 +1,36 @@
+#1. Move these packages from devDependencies to dependencies
+------------------------------------------------------------------
+"@angular/cli": "~10.0.0",
+"@angular/compiler-cli": "~10.0.0",
+"@angular-devkit/build-angular": "~0.1000.0",
+"typescript": "~3.9.5"
+
+
+#2. Add this line into the scripts section
+------------------------------------------------------------------
+"postinstall": "ng build --output-path angularapp  --aot --prod"
+
+
+#3. Set port to --host 0.0.0.0 by replacing the start script
+------------------------------------------------------------------
+"start": "ng serve --port $PORT --host 0.0.0.0 --disable-host-check",
+
+#4. Set engines
+------------------------------------------------------------------
+"engines": {
+    "node": "12.16.3",
+    "npm": "6.14.4"
+}
+
+#5. Push to github and deploy
+------------------------------------------------------------------
+git add . && git commit -m "codemobiles" && git push
+
+
+#6. Heroku cli
+-----------------------------------
+sudo yarn global add heroku
+
+#7. Check log
+-----------------------------------
+heroku logs --tail --app heroku-cm-demo

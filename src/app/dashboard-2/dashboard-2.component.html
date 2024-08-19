@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-12">
+    <div id="report">
+      <div class="report-header">
+        <div>ตารางแสดงเวลาจัดส่งชิ้นงานจาก VENDOR -> SANKO</div>
+        <div>{{ timer | date : "dd/MM/yyyy hh:mm:ss" }}</div>
+      </div>
+      <div class="report-body">
+        <table id="report-table" class="">
+          <thead>
+            <tr>
+              <th class="text-center">เวลา</th>
+              <th class="">บริษัท</th>
+              <th class="">คนขับ</th>
+              <th class="text-center">ทะเบียนรถ</th>
+              <th class="">สินค้า</th>
+              <th class="text-center">จำนวน</th>
+              <th class="text-center">หน่วยนับ</th>
+              <th class="text-center">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let schedule of scheduleData"
+              [ngClass]="{
+                wait: schedule[10] === 1,
+                waitc: schedule[10] === 2,
+                complete: schedule[10] === 3,
+                delay: schedule[10] === 4,
+                cancel: schedule[10] === 5
+              }"
+            >
+              <td class="text-center">{{ schedule[3] | date : "HH:mm" }}</td>
+              <td class="">
+                {{ schedule[2] }}
+              </td>
+              <td class="">{{ schedule[5] }}</td>
+              <td class="text-center">{{ schedule[6] }}</td>
+              <td class="">
+                {{ schedule[7] }}
+              </td>
+              <td class="text-center">
+                {{ schedule[8] | number }}
+              </td>
+              <td class="text-center">
+                {{ schedule[9] }}
+              </td>
+              <td class="text-center">
+                <div *ngIf="schedule[10] == 1">WAIT</div>
+                <div *ngIf="schedule[10] == 2">WAITC</div>
+                <div *ngIf="schedule[10] == 3">COMPLETE</div>
+                <div *ngIf="schedule[10] == 4">DELAY</div>
+                <div *ngIf="schedule[10] == 5">CANCEL</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="summary-lists">
+          <div class="summary-item">
+            <div class="title">Total</div>
+            <div class="count-box">{{ totalCount }}</div>
+          </div>
+          <div class="summary-item">
+            <div class="title">Wait</div>
+            <div class="count-box">{{ waitCount }}</div>
+          </div>
+          <div class="summary-item">
+            <div class="title">Wait(C)</div>
+            <div class="count-box">{{ waitCCount }}</div>
+          </div>
+          <div class="summary-item">
+            <div class="title">Complete</div>
+            <div class="count-box">{{ completeCount }}</div>
+          </div>
+          <div class="summary-item">
+            <div class="title">Delay</div>
+            <div class="count-box">{{ delayCount }}</div>
+          </div>
+          <div class="summary-item">
+            <div class="title">Cancel</div>
+            <div class="count-box">{{ cancelCount }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="report-footer">
+        <div>เลือกหน้า</div>
+        <div>
+          <a routerLink="/dash1" class="button-link">SANKO -> VENDOR </a>
+          <a routerLink="/dash2" class="button-link acitve">VENDOR -> SANKO </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
